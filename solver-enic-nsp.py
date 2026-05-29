@@ -1,5 +1,12 @@
 from pulp import *
-import random
+import time
+import tracemalloc
+import pulp
+import numpy as np
+
+tempos_cpu = []
+tempos_perf = []
+picos_memoria = []
 
 # ==============================================================================
 # 1. CONJUNTOS (DEFINIÇÃO DO ESPAÇO DO PROBLEMA)
@@ -32,16 +39,16 @@ p = {(a, t, d): 5 for a in avaliadores for t in turnos for d in dias}
 # 5 = Está disponível normalmente
 # 9 = Tem forte preferência por aquele dia.
 
-# Exemplo 1: Prof_1 tem alta preferência pela manhã (Peso 9) e detesta a noite (Peso 1)
+# Prof_1 tem alta preferência pela manhã (Peso 9) e detesta a noite (Peso 1)
 for d in dias:
     p["Prof_1", 1, d] = 9
     p["Prof_1", 3, d] = 1
 
-# Exemplo 2: Prof_2 não pode trabalhar no Dia 1 (Peso 0 = Indisponibilidade)
+# Prof_2 não pode trabalhar no Dia 1 (Peso 0 = Indisponibilidade)
 for t in turnos:
     p["Prof_2", t, 1] = 0
 
-# Exemplo 3: Prof_3 adora o turno da noite (Peso 9)
+# Prof_3 adora o turno da noite (Peso 9)
 for d in dias:
     p["Prof_3", 3, d] = 9
 

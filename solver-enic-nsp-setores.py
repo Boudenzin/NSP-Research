@@ -14,19 +14,18 @@ setores = [1, 2, 3, 4]                              # Conjunto S (1=Exatas, 2=Hu
 # 2. PARÂMETROS E PESOS (DADOS DE ENTRADA)
 # ==============================================================================
 # r_tds: Demanda por turno, dia e área. 
-# Exemplo: Dia 1, Turno 1 (Manhã) precisa de 1 de Exatas, 1 de Humanas e 1 de Saúde.
+# Dia 1, Turno 1 (Manhã) precisa de 1 de Exatas, 1 de Humanas e 1 de Saúde.
 r = {}
 for d in dias:
     for t in turnos:
         # Simplificando: cada turno precisa de 1 prof de cada área
         for s in setores:
-            r[t, d, s] = 1 if s <= 2 else 0 # Exemplo: apenas áreas 1 e 2 por turno
-
+            r[t, d, s] = 1 if s <= 2 else 0 
 # h_as: Matriz de Habilidade (1 se o prof a domina a área s)
 # Vamos inicializar todos como 0 e dar habilidades específicas
 h = {(a, s): 0 for a in avaliadores for s in setores}
 for a in avaliadores:
-    # Exemplo: Professores ímpares são de Exatas(1)/Tec(4), pares são Humanas(2)/Saúde(3)
+    # Professores ímpares são de Exatas(1)/Tec(4), pares são Humanas(2)/Saúde(3)
     if int(a.split('_')[1]) % 2 != 0:
         h[a, 1] = 1
         h[a, 4] = 1
@@ -50,16 +49,16 @@ p = {(a, t, d): 5 for a in avaliadores for t in turnos for d in dias}
 # 5 = Está disponível normalmente
 # 9 = Tem forte preferência por aquele dia.
 
-# Exemplo 1: Prof_1 tem alta preferência pela manhã (Peso 9) e detesta a noite (Peso 1)
+# Prof_1 tem alta preferência pela manhã (Peso 9) e detesta a noite (Peso 1)
 for d in dias:
     p["Prof_1", 1, d] = 9
     p["Prof_1", 3, d] = 1
 
-# Exemplo 2: Prof_2 não pode trabalhar no Dia 1 (Peso 0 = Indisponibilidade)
+# 2: Prof_2 não pode trabalhar no Dia 1 (Peso 0 = Indisponibilidade)
 for t in turnos:
     p["Prof_2", t, 1] = 0
 
-# Exemplo 3: Prof_3 adora o turno da noite (Peso 9)
+# E Prof_3 adora o turno da noite (Peso 9)
 for d in dias:
     p["Prof_3", 3, d] = 9
 

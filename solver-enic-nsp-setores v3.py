@@ -14,7 +14,6 @@ setores = [1, 2, 3, 4]                              # Conjunto S (1=Exatas, 2=Hu
 # 2. PARÂMETROS E PESOS (DADOS DE ENTRADA)
 # ==============================================================================
 # r_tds: Demanda por turno, dia e área. 
-# Exemplo: Dia 1, Turno 1 (Manhã) precisa de 1 de Exatas, 1 de Humanas e 1 de Saúde.
 # Zerando a demanda para limpar o cenário anterior
 r = {(t, d, s): 0 for t in turnos for d in dias for s in setores}
 
@@ -41,7 +40,7 @@ r[2, 4, 1] = 1; r[2, 4, 4] = 1  # Tarde
 # Vamos inicializar todos como 0 e dar habilidades específicas
 h = {(a, s): 0 for a in avaliadores for s in setores}
 for a in avaliadores:
-    # Exemplo: Professores ímpares são de Exatas(1)/Tec(4), pares são Humanas(2)/Saúde(3)
+    # Professores ímpares são de Exatas(s=1)/Tec(s=4), pares são Humanas(s=2)/Saúde(s=3)
     if int(a.split('_')[1]) % 2 != 0:
         h[a, 1] = 1
         h[a, 4] = 1
@@ -56,8 +55,6 @@ ca_valor = len(dias) - 1
 # Inicializamos todos com peso 5 (neutro)
 p = {(a, t, d): 5 for a in avaliadores for t in turnos for d in dias}
 
-# Aqui nesse caso, pra testar as preferências, foram pensados em 3 professores que tem 
-# preferências especificas.
 
 # Usei a seguinte escala de peso.
 # 0 = Indisponivel, não pode estar lá

@@ -14,7 +14,6 @@ setores = [1, 2, 3, 4]                              # Conjunto S (1=Exatas, 2=Hu
 # 2. PARÂMETROS E PESOS (DADOS DE ENTRADA)
 # ==============================================================================
 # r_tds: Demanda por turno, dia e área. 
-# Exemplo: Dia 1, Turno 1 (Manhã) precisa de 1 de Exatas, 1 de Humanas e 1 de Saúde.
 # Zerando a demanda para limpar o cenário anterior
 r = {(t, d, s): 0 for t in turnos for d in dias for s in setores}
 
@@ -28,7 +27,7 @@ r[2, 3, 4] = 3  # Tarde do Dia 3: Precisa de 3 profs de Tecnologia
 # Vamos inicializar todos como 0 e dar habilidades específicas
 h = {(a, s): 0 for a in avaliadores for s in setores}
 for a in avaliadores:
-    # Exemplo: Professores ímpares são de Exatas(1)/Tec(4), pares são Humanas(2)/Saúde(3)
+    # Professores ímpares são de Exatas(1)/Tec(4), pares são Humanas(2)/Saúde(3)
     if int(a.split('_')[1]) % 2 != 0:
         h[a, 1] = 1
         h[a, 4] = 1
